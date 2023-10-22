@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 import { CeramicClient } from "@ceramicnetwork/http-client"
 import { ComposeClient } from "@composedb/client";
 
-import { definition } from "../src/__generated__/definition.js";
+import { definition } from "~/__generated__/definition";
 import { RuntimeCompositeDefinition } from "@composedb/types";
 
 

@@ -31,7 +31,9 @@ export const RunCommands = async () => {
         "admin-dids": [adminDid.id],
       },
       ipfs: {
-        mode: "bundled",
+        "host": "http://127.0.0.1:5001",
+        "mode": "remote"
+        // mode: "bundled",
       },
       logger: {
         "log-level": 2,
@@ -47,10 +49,10 @@ export const RunCommands = async () => {
       node: {},
       "state-store": {
         mode: "fs",
-        "local-directory": `~/.ceramic/statestore/`,
+        "local-directory": `${homedir().replace(/\\/g, "/")}/.ceramic/statestore/`,
       },
       indexing: {
-        db: `sqlite://${homedir()}/.ceramic/indexing.sqlite`,
+        db: `sqlite://${homedir().replace(/\\/g, "/")}/.ceramic/indexing.sqlite`,
         "allow-queries-before-historical-sync": true,
         models: [],
       },

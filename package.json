@@ -6,8 +6,8 @@
     "generate": "node scripts/commands.mjs",
     "dev": "node scripts/run.mjs",
     "nextDev": "next dev",
-    "ceramic": "CERAMIC_ENABLE_EXPERIMENTAL_COMPOSE_DB='true' ceramic daemon --config ./composedb.config.json",
-    "ceramic:local": "CERAMIC_ENABLE_EXPERIMENTAL_COMPOSE_DB='true' npx @ceramicnetwork/cli daemon",
+    "ceramic": "set CERAMIC_ENABLE_EXPERIMENTAL_COMPOSE_DB='true' & ceramic daemon --config ./composedb.config.json",
+    "ceramic:local": "set CERAMIC_ENABLE_EXPERIMENTAL_COMPOSE_DB='true' & npx @ceramicnetwork/cli daemon",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -38,6 +38,8 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@composedb/devtools": "^0.5.1",
+    "@composedb/devtools-node": "^0.5.2",
     "@composedb/types": "^0.3.0",
     "@types/eslint": "^8.44.2",
     "@types/node": "^18.16.0",

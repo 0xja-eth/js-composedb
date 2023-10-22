@@ -1,0 +1,17 @@
+type User @createModel(accountRelation: SINGLE, description: "A simple Post") {
+    author: DID! @documentAccount
+    avatar: String @string(maxLength: 100000)
+    name: String @string(maxLength: 256)
+
+    ciphertext: String @string(maxLength: 100000)
+    encryptedMessage: String! @string(maxLength: 100000)
+
+    chain: String @string(maxLength: 100000)
+    accessControlConditions: String @string(maxLength: 100000)
+    accessControlConditionType: String @string(maxLength: 100000)
+
+    mintTxHash: String @string(minLength: 66, maxLength: 66)
+
+    updateTime: DateTime
+    createTime: DateTime!
+}
