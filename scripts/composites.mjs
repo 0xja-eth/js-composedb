@@ -22,26 +22,27 @@ export const writeComposite = async (spinner) => {
   await authenticate();
   spinner.info("writing composite to Ceramic");
 
-  const postComposite = await createComposite(
-    ceramic,
-    "./composites/00-posts.graphql"
-  );
+  // const userComposite = await createComposite(
+  //   ceramic,
+  //   "./composites/01-user.graphql"
+  // );
+  //
+  // const composite = Composite.from([
+  //   userComposite
+  // ]);
+  //
+  // await writeEncodedComposite(composite, "./src/__generated__/user_definition.json");
+  // spinner.info("creating composite for runtime usage");
+  // await writeEncodedCompositeRuntime(
+  //   ceramic,
+  //   "./src/__generated__/user_definition.json",
+  //   "./src/__generated__/user_definition.js"
+  // );
 
-  const composite = Composite.from([
-    postComposite
-  ]);
-
-  await writeEncodedComposite(composite, "./src/__generated__/definition.json");
-  spinner.info("creating composite for runtime usage");
-  await writeEncodedCompositeRuntime(
-    ceramic,
-    "./src/__generated__/definition.json",
-    "./src/__generated__/definition.js"
-  );
   spinner.info("deploying composite");
   const deployComposite = await readEncodedComposite(
     ceramic,
-    "./src/__generated__/definition.json"
+    "./src/__generated__/user_definition.json"
   );
 
   await deployComposite.startIndexingOn(ceramic);

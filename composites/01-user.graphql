@@ -1,5 +1,8 @@
-type User @createModel(accountRelation: SINGLE, description: "A simple Post") {
-    author: DID! @documentAccount
+type User
+  @createModel(accountRelation: SINGLE, description: "Data2.cash User")
+  @createIndex(fields: [{path: "name"}])
+{
+    did: DID! @documentAccount
     avatar: String @string(maxLength: 100000)
     name: String @string(maxLength: 256)
 

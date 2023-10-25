@@ -21,17 +21,17 @@ const Home: NextPage = () => {
     const accounts = await window.ethereum.request({ method: "eth_accounts" });
     setAddress(accounts[0].toLowerCase());
     setLoggedIn(true);
-    const thisLit = startLitClient(window);
+    const thisLit = await startLitClient(window);
     setLit(thisLit);
   };
 
-  const startLitClient = (window: Window): ILitNodeClient => {
-    // connect to lit 
+  const startLitClient = async (window: Window): Promise<ILitNodeClient> => {
+    // connect to lit
     console.log("Starting Lit Client...");
     const client = new LitJsSdk.LitNodeClient({
-      url: window.location.origin
+      // url: window.location.origin
     });
-    client.connect();
+    await client.connect();
     return client as ILitNodeClient;
   };
 
