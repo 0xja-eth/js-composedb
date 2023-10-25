@@ -1,8 +1,8 @@
 import ora from 'ora'
 
-import { spawn } from "child_process"
-import { EventEmitter } from 'events'
-import { writeComposite } from './composites.mjs';
+import {spawn} from "child_process"
+import {EventEmitter} from 'events'
+import {writeComposite} from './composites.mjs';
 
 const events = new EventEmitter()
 const spinner = ora();
@@ -45,14 +45,6 @@ const graphiql = async () => {
   })
 }
 
-const next = async () => {
-  const next = spawn('npm.cmd', ['run', 'nextDev'])
-  spinner.info("[NextJS] starting nextjs app");
-  next.stdout.on('data', (buffer) => {
-    console.log('[NextJS]', buffer.toString())
-  })
-}
-
 const start = async () => {
   try {
     spinner.start('[Ceramic] Starting Ceramic node\n')
@@ -60,7 +52,6 @@ const start = async () => {
       if (isRunning) {
         await bootstrap()
         await graphiql()
-        await next()
       }
       if(isRunning === false) {
         ceramic.kill()

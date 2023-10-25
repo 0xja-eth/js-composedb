@@ -5,6 +5,7 @@ import { writeFile } from "fs";
 import { DID } from "dids";
 import { Ed25519Provider } from "key-did-provider-ed25519";
 import { homedir } from "os";
+
 export const RunCommands = async () => {
   const generateAdminKeyDid = async () => {
     const seed = new Uint8Array(randomBytes(32));
@@ -24,6 +25,9 @@ export const RunCommands = async () => {
   };
   // @ts-ignore
   const generateLocalConfig = async (adminSeed, adminDid) => {
+    // Suitable for Windows
+    const dir = homedir().replace(/\\/g, "/")
+
     const configData = {
       anchor: {},
       "http-api": {
@@ -49,17 +53,17 @@ export const RunCommands = async () => {
       node: {},
       "state-store": {
         mode: "fs",
-        "local-directory": `${homedir().replace(/\\/g, "/")}/.ceramic/statestore/`,
+        "local-directory": `${dir}/.ceramic/statestore/`,
       },
       indexing: {
-        db: `sqlite://${homedir().replace(/\\/g, "/")}/.ceramic/indexing.sqlite`,
+        db: `sqlite://${dir}/.ceramic/indexing.sqlite`,
         "allow-queries-before-historical-sync": true,
         models: [],
       },
     };
     writeFile(
       `${process.cwd()}/composedb.config.json`,
-      JSON.stringify(configData),
+      JSON.stringify(configData, null, 2),
       (err) => {
         if (err) {
           console.error(err);

@@ -1,12 +1,13 @@
 import { serveEncodedDefinition } from "@composedb/devtools-node";
+import {CeramicHost, GenerateFile} from "./config.mjs";
 
 /**
  * Runs GraphiQL server to view & query composites.
  */
 const server = await serveEncodedDefinition({
-  ceramicURL: "http://localhost:7007",
+  ceramicURL: CeramicHost,
   graphiql: true,
-  path: "./src/__generated__/definition.json",
+  path: `${GenerateFile}.json`,
   port: 5001,
 });
 

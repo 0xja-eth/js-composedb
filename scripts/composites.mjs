@@ -1,18 +1,19 @@
-import { readFileSync } from "fs";
-import { CeramicClient } from "@ceramicnetwork/http-client";
+import {existsSync, readFileSync} from "fs";
+import {CeramicClient} from "@ceramicnetwork/http-client";
 import {
   createComposite,
   readEncodedComposite,
   writeEncodedComposite,
   writeEncodedCompositeRuntime,
 } from "@composedb/devtools-node";
-import { Composite } from "@composedb/devtools";
-import { DID } from "dids";
-import { Ed25519Provider } from "key-did-provider-ed25519";
-import { getResolver } from "key-did-resolver";
-import { fromString } from "uint8arrays/from-string";
+import {Composite} from "@composedb/devtools";
+import {DID} from "dids";
+import {Ed25519Provider} from "key-did-provider-ed25519";
+import {getResolver} from "key-did-resolver";
+import {fromString} from "uint8arrays";
+import {CeramicHost, GenerateFile, GraphqlFile} from "./config.mjs";
 
-const ceramic = new CeramicClient('http://localhost:7007');
+const ceramic = new CeramicClient(CeramicHost);
 
 /**
  * @param {import("ora").Ora} spinner - to provide progress status.
@@ -22,27 +23,21 @@ export const writeComposite = async (spinner) => {
   await authenticate();
   spinner.info("writing composite to Ceramic");
 
-  // const userComposite = await createComposite(
-  //   ceramic,
-  //   "./composites/01-user.graphql"
-  // );
-  //
-  // const composite = Composite.from([
-  //   userComposite
-  // ]);
-  //
-  // await writeEncodedComposite(composite, "./src/__generated__/user_definition.json");
-  // spinner.info("creating composite for runtime usage");
-  // await writeEncodedCompositeRuntime(
-  //   ceramic,
-  //   "./src/__generated__/user_definition.json",
-  //   "./src/__generated__/user_definition.js"
-  // );
+  if (!existsSync(`${GenerateFile}.json`) || !existsSync(`${GenerateFile}.js`)) {
+    const createdComposite = await createComposite(ceramic, GraphqlFile);
+
+    const composite = Composite.from([createdComposite]);
+
+    await writeEncodedComposite(composite, `${GenerateFile}.json`);
+    spinner.info("creating composite for runtime usage");
+    await writeEncodedCompositeRuntime(
+      ceramic, `${GenerateFile}.json`, `${GenerateFile}.js`
+    );
+  }
 
   spinner.info("deploying composite");
   const deployComposite = await readEncodedComposite(
-    ceramic,
-    "./src/__generated__/user_definition.json"
+    ceramic, `${GenerateFile}.json`
   );
 
   await deployComposite.startIndexingOn(ceramic);

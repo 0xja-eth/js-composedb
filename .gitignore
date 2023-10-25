@@ -40,3 +40,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+__generated__
+admin_seed.txt
+composedb.config.json
