@@ -43,3 +43,5 @@ yarn-error.log*
 __generated__
 admin_seed.txt
 composedb.config.json
+
+*.zip

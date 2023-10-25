@@ -6,8 +6,8 @@
     "generate": "node scripts/commands.mjs",
     "dev": "node scripts/run.mjs",
     "nextDev": "next dev",
-    "ceramic": "set CERAMIC_ENABLE_EXPERIMENTAL_COMPOSE_DB='true' & ceramic daemon --config ./composedb.config.json",
-    "ceramic:local": "set CERAMIC_ENABLE_EXPERIMENTAL_COMPOSE_DB='true' & npx @ceramicnetwork/cli daemon",
+    "ceramic": "ceramic daemon --config ./composedb.config.json",
+    "ceramic:local": "npx @ceramicnetwork/cli daemon",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
