@@ -6,7 +6,7 @@ COPY . .
 
 ENV CERAMIC_ENABLE_EXPERIMENTAL_COMPOSE_DB=true
 
-#RUN npm install
+RUN npm install
 
 EXPOSE 7007
 

@@ -49,8 +49,7 @@ export const writeComposite = async (spinner) => {
  * @return {Promise<void>} - return void when DID is authenticated.
  */
 const authenticate = async () => {
-  const seed = readFileSync("./admin_seed.txt");
-  // @ts-ignore
+  const seed = readFileSync("./admin_seed.txt", "utf8");
   const key = fromString(seed, "base16");
   const did = new DID({
     // @ts-ignore

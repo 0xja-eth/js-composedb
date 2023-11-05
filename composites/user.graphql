@@ -1,0 +1,44 @@
+type Data2CashUser
+  @createModel(accountRelation: SINGLE, description: "Data2.cash User")
+  @createIndex(fields: [{path: "name"}])
+{
+    did: DID! @documentAccount
+    avatar: String @string(maxLength: 100000)
+    name: String @string(maxLength: 256)
+
+    mintTxHash: String @string(minLength: 66, maxLength: 66)
+
+    ciphertext: String @string(maxLength: 100000)
+    encryptedMessage: String! @string(maxLength: 100000)
+
+    chain: String @string(maxLength: 100000)
+    accessControlConditions: String @string(maxLength: 100000)
+    accessControlConditionType: String @string(maxLength: 100000)
+
+    updateTime: DateTime
+    createTime: DateTime!
+}
+type Data2CashRelation
+  @createModel(accountRelation: SINGLE, description: "Data2.cash Relation")
+  @createIndex(fields: [{path: "rid"}])
+{
+    did: DID! @documentAccount
+
+    rid: String @string(maxLength: 128)
+    type: Int
+
+    name: String @string(maxLength: 256)
+
+    commitment: String @string(maxLength: 256)
+    commitmentReceipt: String @string(maxLength: 2048)
+
+    ciphertext: String @string(maxLength: 100000)
+    encryptedMessage: String! @string(maxLength: 100000)
+
+    chain: String @string(maxLength: 100000)
+    accessControlConditions: String @string(maxLength: 100000)
+    accessControlConditionType: String @string(maxLength: 100000)
+
+    updateTime: DateTime
+    createTime: DateTime!
+}

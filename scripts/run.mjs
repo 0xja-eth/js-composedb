@@ -1,13 +1,13 @@
 import ora from 'ora'
 
-import {spawn} from "child_process"
+import {spawn} from "./spawn.mjs"
 import {EventEmitter} from 'events'
 import {writeComposite} from './composites.mjs';
 
 const events = new EventEmitter()
 const spinner = ora();
 
-const ceramic = spawn("npm", ["run", "ceramic"]);
+const ceramic = spawn("npm.cmd", ["run", "ceramic"]);
 ceramic.stdout.on("data", (buffer) => {
   console.log('[Ceramic]', buffer.toString())
   if (buffer.toString().includes("0.0.0.0:7007")) {
@@ -17,7 +17,7 @@ ceramic.stdout.on("data", (buffer) => {
 })
 
 ceramic.stderr.on('data', (err) => {
-  console.log(err.toString())
+  console.log("[Ceramic] error", err.toString())
 })
 
 const bootstrap = async () => {
@@ -38,7 +38,7 @@ const bootstrap = async () => {
 
 const graphiql = async () => {
   spinner.info("[GraphiQL] starting graphiql");
-  const graphiql = spawn('node', ['./scripts/graphiql.mjs'])
+  const graphiql = spawn('node.exe', ['./scripts/graphiql.mjs'])
   spinner.succeed("[GraphiQL] graphiql started");
   graphiql.stdout.on('data', (buffer) => {
     console.log('[GraphiqQL]',buffer.toString())
@@ -65,7 +65,7 @@ const start = async () => {
   }
 }
 
-start()
+start().then()
 
 process.on("SIGTERM", () => {
   ceramic.kill();

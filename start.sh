@@ -32,6 +32,7 @@ new_c_name="$SERVER_NAME$new_version"
 echo "=======================================> 当前版本号为: $version, 现在正在启动"
 
 docker run -p 7007:7007 --restart=always -d \
+  -v /home/git/ceramic/.ceramic:/root/.ceramic \
   --network=host --name "$new_c_name" "$new_i_name"
 echo "=======================================> 新版本容器启动成功"
 
